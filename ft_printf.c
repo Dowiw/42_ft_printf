@@ -6,116 +6,59 @@
 /*   By: kmonjard <kmonjard@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 19:47:12 by kmonjard          #+#    #+#             */
-/*   Updated: 2025/06/17 19:48:50 by kmonjard         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:56:17 by kmonjard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include <stdarg.h>
-#include <unistd.h>
 
-void	ft_putchar(int c)
+// helper function to handle formatting
+static int	ft_fmt_handler(const char *s, va_list *args, int *i)
 {
-	write(1, &c, 1);
-}
+	int	out;
 
-void	ft_putstr(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		ft_putchar(str[i]);
-		i++;
-	}
-}
-
-void	ft_putint(int n)
-{
-	long nbr;
-
-	nbr = n;
-	if (nbr == -2147483648)
-	{
-		write(1, "-2147483648", 11);
-		return ;
-	}
-	if (nbr < 0)
-	{
-		write(1, "-", 1);
-		nbr *= -1;
-	}
-	if (nbr >= 0 && nbr <= 9)
-		ft_putchar(nbr + '0');
-	while (nbr >= 10)
-	{
-		ft_putint(nbr / 10);
-		ft_putint(nbr % 10);
-		return ;
-	}
-}
-
-void	ft_puthex(void *p)
-{
-	#include <stdint.h>
-	uintptr_t hex;
-	uintptr_t temp;
-
-	hex = (uintptr_t)p;
-	if (hex == 0)
-	{
-		write(1, "(nil)", 5);
-		return ;
-	}
-	write(1, "0x", 2);
-	while (hex != 0)
-	{
-		temp = hex % 16;
-		if (temp >= 10)
-			ft_putchar('m' - temp);
-		else
-			ft_putchar(temp + '0');
-		hex /= 16;
-	}
+	out = 0;
+	if (s[*i + 1] == 'c')
+		out += ft_putchar(va_arg(*args, int));
+	else if (s[*i + 1] == 's')
+		out += ft_putstr(s);
+	else if (s[*i + 1] == 'd' || s[*i + 1] == '*i')
+		out += ft_putint(va_arg(*args, int));
+	else if (s[*i + 1] == 'p')
+		out += ft_putptr(va_arg(*args, void *));
+	else if (s[*i + 1] == 'u')
+		out += ft_putdec_u(va_arg(*args, unsigned int));
+	else if (s[*i + 1] == 'x')
+		out += ft_puthex_lowcase(va_arg(*args, unsigned int));
+	else if (s[*i + 1] == '%')
+		out += ft_putchar('%');
+	return (out);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	int		out;
+	int		count;
+	int		i;
 	va_list	args;
-	size_t	i;
 
+	if (!s)
+		return (-1);
 	i = 0;
 	va_start(args, s);
-	while (s[i])
+	while (s[i] != '\0')
 	{
 		if (s[i] == '%')
 		{
+			count += ft_fmt_handler(s, &args, &i);
+			i += 2;
+		}
+		else
+		{
+			count += ft_putchar(s[i]);
 			i++;
-			if (s[i] == 'c')
-				ft_putchar(va_arg(args, int));
-			if (s[i] == 's')
-				ft_putstr(va_arg(args, char *));
-			if (s[i] == 'i')
-				ft_putint(va_arg(args, int));
-			if (s[i] == 'p')
-				ft_puthex(va_arg(args, void *));
-		} else
-			ft_putchar(s[i]);
-		i++;
+		}
 	}
 	va_end(args);
-	return (i);
-}
-
-int main(void)
-{
-	#include <stdio.h>
-	#include <limits.h>
-	char c = 'a';
-	char *str = "bonjour";
-	int a = INT_MIN;
-	printf("hello %c hello %s hello %i, %p\n", c, str, a, str);
-	ft_printf("hello %c hello %s hello %i, %p\n", c, str, a, str);
-	return 0;
+	return (count);
 }
