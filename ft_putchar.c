@@ -6,7 +6,7 @@
 /*   By: kmonjard <kmonjard@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:39:47 by kmonjard          #+#    #+#             */
-/*   Updated: 2025/07/15 15:39:48 by kmonjard         ###   ########.fr       */
+/*   Updated: 2025/07/16 13:32:45 by kmonjard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_putchar(int c)
 {
-	int	one;
-
-	one = 1;
-	write(STDOUT_FILENO, &c, one);
-	return (one);
+	write(STDOUT_FILENO, &c, 1);
+	return (1);
 }

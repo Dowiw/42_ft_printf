@@ -23,14 +23,16 @@ static int	ft_fmt_handler(const char *s, va_list *args, int *i)
 		out += ft_putchar(va_arg(*args, int));
 	else if (s[*i + 1] == 's')
 		out += ft_putstr(s);
-	else if (s[*i + 1] == 'd' || s[*i + 1] == '*i')
+	else if (s[*i + 1] == 'd' || s[*i + 1] == 'i')
 		out += ft_putint(va_arg(*args, int));
 	else if (s[*i + 1] == 'p')
 		out += ft_putptr(va_arg(*args, void *));
 	else if (s[*i + 1] == 'u')
-		out += ft_putdec_u(va_arg(*args, unsigned int));
+		out += ft_putint_u(va_arg(*args, unsigned int));
 	else if (s[*i + 1] == 'x')
 		out += ft_puthex_lowcase(va_arg(*args, unsigned int));
+	else if (s[*i + 1] == 'X')
+		out += ft_puthex_upcase(va_arg(*args, unsigned int));
 	else if (s[*i + 1] == '%')
 		out += ft_putchar('%');
 	return (out);

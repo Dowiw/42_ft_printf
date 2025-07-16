@@ -21,12 +21,12 @@ int	ft_putint(int n)
 	nbr = n;
 	if (nbr == -2147483648)
 	{
-		write(1, "-2147483648", 11);
+		ft_putstr("-2147483648");
 		return (11);
 	}
 	if (nbr < 0)
 	{
-		write(1, "-", 1);
+		ft_putchar('-');
 		out++;
 		nbr *= -1;
 	}
@@ -36,7 +36,6 @@ int	ft_putint(int n)
 	{
 		ft_putint(nbr / 10);
 		ft_putint(nbr % 10);
-		return (out);
 	}
 	return (out);
 }

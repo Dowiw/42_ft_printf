@@ -17,7 +17,8 @@ C_COMPILER = gcc
 C_FLAGS = -Wall -Wextra -Werror -c
 
 C_FILES = ft_printf.c ft_putchar.c ft_putstr.c \
-		ft_putint.c ft_putptr.c
+		ft_putint.c ft_putptr.c ft_puthex_low.c \
+		ft_puthex_up.c ft_putint_u.c
 
 O_FILES = $(C_FILES:.c=.o)
 

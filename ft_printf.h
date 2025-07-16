@@ -25,7 +25,7 @@ int	ft_printf(const char *s, ...);
 int	ft_putchar(int c);
 
 // write out a string of characters to stdout
-int	ft_putstr(char *str);
+int	ft_putstr(const char *str);
 
 // write out an integer to stdout
 int	ft_putint(int n);
@@ -40,6 +40,6 @@ int	ft_putint_u(unsigned int n);
 int ft_puthex_lowcase(unsigned int n);
 
 // write out the big-case hex format of an unsigned int in stdout
-int ft_puthex_bigcase(unsigned int n);
+int ft_puthex_upcase(unsigned int n);
 
 #endif
