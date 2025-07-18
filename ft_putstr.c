@@ -17,6 +17,11 @@ int	ft_putstr(const char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+	{
+		write(STDOUT_FILENO, "(null)", 7);
+		return (7);
+	}
 	while (str[i] != '\0')
 	{
 		ft_putchar(str[i]);

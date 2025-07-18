@@ -16,7 +16,7 @@
 # include <unistd.h> // all functions need this for write
 
 /*
-	my printf function that allows the formats:
+	my printf function that implements the formats:
 	`%%, %c, %s, %i, %x, %X, %u, %d`
 */
 int	ft_printf(const char *s, ...);
@@ -37,9 +37,9 @@ int	ft_putptr(void *p);
 int	ft_putint_u(unsigned int n);
 
 // write out the low-case hex format of an unsigned int in stdout
-int ft_puthex_lowcase(unsigned int n);
+int	ft_puthex_lowcase(unsigned int n);
 
 // write out the big-case hex format of an unsigned int in stdout
-int ft_puthex_upcase(unsigned int n);
+int	ft_puthex_upcase(unsigned int n);
 
 #endif

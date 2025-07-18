@@ -14,26 +14,26 @@
 #include <stdarg.h>
 
 // helper function to handle formatting
-static int	ft_fmt_handler(const char *s, va_list *args, int *i)
+static int	ft_fmt_handler(const char *s, va_list *args, int i)
 {
 	int	out;
 
 	out = 0;
-	if (s[*i + 1] == 'c')
+	if (s[i + 1] == 'c')
 		out += ft_putchar(va_arg(*args, int));
-	else if (s[*i + 1] == 's')
-		out += ft_putstr(s);
-	else if (s[*i + 1] == 'd' || s[*i + 1] == 'i')
+	else if (s[i + 1] == 's')
+		out += ft_putstr(va_arg(*args, char *));
+	else if (s[i + 1] == 'd' || s[i + 1] == 'i')
 		out += ft_putint(va_arg(*args, int));
-	else if (s[*i + 1] == 'p')
+	else if (s[i + 1] == 'p')
 		out += ft_putptr(va_arg(*args, void *));
-	else if (s[*i + 1] == 'u')
+	else if (s[i + 1] == 'u')
 		out += ft_putint_u(va_arg(*args, unsigned int));
-	else if (s[*i + 1] == 'x')
+	else if (s[i + 1] == 'x')
 		out += ft_puthex_lowcase(va_arg(*args, unsigned int));
-	else if (s[*i + 1] == 'X')
+	else if (s[i + 1] == 'X')
 		out += ft_puthex_upcase(va_arg(*args, unsigned int));
-	else if (s[*i + 1] == '%')
+	else if (s[i + 1] == '%')
 		out += ft_putchar('%');
 	return (out);
 }
@@ -41,18 +41,19 @@ static int	ft_fmt_handler(const char *s, va_list *args, int *i)
 int	ft_printf(const char *s, ...)
 {
 	int		count;
-	int		i;
+	size_t	i;
 	va_list	args;
 
 	if (!s)
 		return (-1);
 	i = 0;
+	count = 0;
 	va_start(args, s);
 	while (s[i] != '\0')
 	{
 		if (s[i] == '%')
 		{
-			count += ft_fmt_handler(s, &args, &i);
+			count += ft_fmt_handler(s, &args, i);
 			i += 2;
 		}
 		else
