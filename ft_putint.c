@@ -32,10 +32,7 @@ int	ft_putint(int n)
 	}
 	if (nbr >= 0 && nbr <= 9)
 		out += ft_putchar(nbr + '0');
-	while (nbr >= 10)
-	{
-		ft_putint(nbr / 10);
-		ft_putint(nbr % 10);
-	}
+	else if (nbr >= 10)
+		out += ft_putint(nbr / 10) + ft_putint(nbr % 10);
 	return (out);
 }
