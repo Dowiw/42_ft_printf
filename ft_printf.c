@@ -38,6 +38,15 @@ static int	ft_fmt_handler(const char *s, va_list *args, int i)
 	return (out);
 }
 
+static int	ft_is_valid_specifier(const char *s, size_t i)
+{
+	return (
+		s[i] == 'c' || s[i] == 's' || s[i] == 'p'
+		|| s[i] == 'd' || s[i] == 'i' || s[i] == 'u'
+		|| s[i] == 'x' || s[i] == 'X' || s[i] == '%'
+	);
+}
+
 int	ft_printf(const char *s, ...)
 {
 	int		count;
@@ -51,7 +60,7 @@ int	ft_printf(const char *s, ...)
 	va_start(args, s);
 	while (s[i] != '\0')
 	{
-		if (s[i] == '%')
+		if (s[i] == '%' && s[i + 1] != '\0' && ft_is_valid_specifier(s, i + 1))
 		{
 			count += ft_fmt_handler(s, &args, i);
 			i += 2;
