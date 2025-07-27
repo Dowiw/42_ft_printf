@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_puthex_up.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmonjard <kmonjard@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/18 17:24:19 by kmonjard          #+#    #+#             */
+/*   Updated: 2025/07/18 17:24:21 by kmonjard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_puthex_upcase(unsigned int n)
+int	ft_puthex_upcase(unsigned int n)
 {
 	char			buffer[16];
 	int				i;
@@ -10,6 +22,8 @@ int ft_puthex_upcase(unsigned int n)
 	i = 0;
 	out = 0;
 	temp = 0;
+	if (n == 0)
+		return (ft_putchar('0'));
 	while (n != 0)
 	{
 		temp = n % 16;
